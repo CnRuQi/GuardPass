@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- iOS 18 layout stagger：每项 6% 延迟，营造波浪感 -->
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/ios_item_rise"
+    android:delay="6%"
+    android:animationOrder="normal" />

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Spinner 背景：iOS 18 风格圆角 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/card_background" />
+            <corners android:radius="@dimen/corner_lg" />
+            <stroke
+                android:width="0.5dp"
+                android:color="@color/divider" />
+        </shape>
+    </item>
+</layer-list>

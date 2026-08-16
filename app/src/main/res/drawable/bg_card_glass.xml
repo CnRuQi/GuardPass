@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- iOS 18 液态玻璃卡片背景：实色 + 内描边（模拟毛玻璃） -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 底层：卡片色 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/card_background" />
+            <corners android:radius="@dimen/corner_xl" />
+        </shape>
+    </item>
+    <!-- 顶部高光（白→透明渐变，模拟光照） -->
+    <item
+        android:top="0dp"
+        android:right="0dp"
+        android:left="0dp"
+        android:bottom="40dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#FFFFFF14"
+                android:endColor="#00000000" />
+            <corners
+                android:topLeftRadius="@dimen/corner_xl"
+                android:topRightRadius="@dimen/corner_xl" />
+        </shape>
+    </item>
+    <!-- 内描边：白色 1px，模拟毛玻璃边缘 -->
+    <item
+        android:top="0.5dp"
+        android:bottom="0.5dp"
+        android:left="0.5dp"
+        android:right="0.5dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="0.5dp"
+                android:color="@color/stroke_glass" />
+            <corners android:radius="@dimen/corner_xl" />
+        </shape>
+    </item>
+</layer-list>

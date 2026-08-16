@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- iOS 18 搜索框：浅底 + 圆角 + ripple -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#2D2A2414">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="@dimen/corner_xl" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/surface_variant" />
+            <corners android:radius="@dimen/corner_xl" />
+        </shape>
+    </item>
+</ripple>

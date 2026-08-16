@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- iOS 18 弹出菜单：毛玻璃圆角 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/card_background" />
+            <corners android:radius="@dimen/corner_xl" />
+        </shape>
+    </item>
+    <item
+        android:top="0.5dp"
+        android:bottom="0.5dp"
+        android:left="0.5dp"
+        android:right="0.5dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="0.5dp"
+                android:color="@color/stroke_glass" />
+            <corners android:radius="@dimen/corner_xl" />
+        </shape>
+    </item>
+</layer-list>

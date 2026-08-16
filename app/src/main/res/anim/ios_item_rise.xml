@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  iOS 18 风格：列表项入场
+  - 从下方 12dp 升起
+  - 透明度 0 → 1
+  - 轻微 scale 0.98 → 1（iOS 18 列表的微妙回弹）
+  - 350ms，overshoot 插值
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+    <translate
+        android:duration="350"
+        android:fromYDelta="12%"
+        android:toYDelta="0%"
+        android:interpolator="@android:interpolator/decelerate_cubic" />
+    <alpha
+        android:duration="280"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:interpolator="@android:interpolator/decelerate_cubic" />
+    <scale
+        android:duration="380"
+        android:fromXScale="0.98"
+        android:fromYScale="0.98"
+        android:toXScale="1.0"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:interpolator="@android:interpolator/overshoot" />
+</set>

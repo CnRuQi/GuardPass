@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 枯木冷茶 · 禅茶书房 / Day Mode -->
+    <!-- 主色：枯木褐，温润不抢戏 -->
+    <color name="primary">#5856D6</color>
+    <color name="primary_dark">#4A48B5</color>
+    <color name="primary_light">#7A78E0</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <!-- 强调色：柔和紫调 -->
+    <color name="accent">#E8E6FF</color>
+    <color name="accent_dark">#D0CDF0</color>
+    <color name="accent_light">#F2F0FF</color>
+    <color name="on_accent">#5856D6</color>
+
+    <!-- 背景层：iOS 风格分层 -->
+    <color name="background">#F2F2F7</color>
+    <color name="card_background">#FEFFFF</color>
+    <color name="card_background_glass">#F8F8FC</color>
+    <color name="surface_variant">#E5E5EA</color>
+
+    <!-- 文字：深灰 → 中灰 → 浅灰 -->
+    <color name="text_primary">#1C1C1E</color>
+    <color name="text_secondary">#6E6E73</color>
+    <color name="text_tertiary">#AEAEB2</color>
+
+    <!-- 边框/分割 -->
+    <color name="divider">#E0E0E5</color>
+    <color name="stroke_glass">#00000008</color>
+
+    <!-- 密码遮罩 -->
+    <color name="password_mask">#C7C7CC</color>
+
+    <!-- 语义色 -->
+    <color name="error">#FF3B30</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="success">#34C759</color>
+    <color name="warning">#FF9F0A</color>
+
+    <!-- 半透明遮罩 -->
+    <color name="scrim">#00000033</color>
+
+    <!-- 工具色（透明、纯白、黑） -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- 系统兼容占位（Material 警告/主题可能引用） -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+</resources>

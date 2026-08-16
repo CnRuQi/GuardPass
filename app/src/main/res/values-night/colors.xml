@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- iOS 暗色模式 -->
+
+    <!-- 主色 -->
+    <color name="primary">#7A78E0</color>
+    <color name="primary_dark">#5856D6</color>
+    <color name="primary_light">#9E9CFF</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <!-- 强调色 -->
+    <color name="accent">#2C2A4A</color>
+    <color name="accent_dark">#1C1A3A</color>
+    <color name="accent_light">#3C3A5A</color>
+    <color name="on_accent">#9E9CFF</color>
+
+    <!-- 背景层 -->
+    <color name="background">#1C1C1E</color>
+    <color name="card_background">#2C2C2E</color>
+    <color name="card_background_glass">#323234</color>
+    <color name="surface_variant">#3A3A3C</color>
+
+    <!-- 文字 -->
+    <color name="text_primary">#F2F2F7</color>
+    <color name="text_secondary">#AEAEB2</color>
+    <color name="text_tertiary">#636366</color>
+
+    <color name="divider">#38383A</color>
+    <color name="stroke_glass">#FFFFFF1A</color>
+
+    <color name="password_mask">#636366</color>
+
+    <color name="error">#FF453A</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="success">#30D158</color>
+    <color name="warning">#FF9F0A</color>
+
+    <color name="scrim">#00000066</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
+</resources>

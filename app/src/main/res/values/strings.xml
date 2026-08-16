@@ -1,0 +1,157 @@
+<resources>
+    <string name="app_name">密码</string>
+    <string name="search_hint">搜索主题或账号...</string>
+    <string name="no_passwords">暂无密码记录</string>
+    <string name="add_password">添加密码</string>
+    <string name="edit_password">编辑密码</string>
+    <string name="delete_confirm">确定删除这条记录吗？</string>
+    <string name="copied">已复制到剪贴板</string>
+    <string name="settings">设置</string>
+    <string name="all_categories">全部</string>
+    <string name="favorites">收藏</string>
+    
+    <!-- AddEdit 页面 -->
+    <string name="title_add">添加记录</string>
+    <string name="title_edit">编辑记录</string>
+    <string name="hint_title">请输入主题名称</string>
+    <string name="hint_username">请输入账号</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="hint_url">请输入网址（可选）</string>
+    <string name="hint_notes">请输入备注（可选）</string>
+    <string name="hint_select_category">选择分类</string>
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string name="delete_confirm_title">确认删除</string>
+    <string name="delete_confirm_message">确定要删除这条记录吗？此操作不可撤销。</string>
+    <string name="cancel">取消</string>
+    <string name="title_required">请输入主题名称</string>
+    <string name="username_required">请输入账号</string>
+    <string name="save_success">保存成功</string>
+    <string name="delete_success">删除成功</string>
+    <string name="category_none">无分类</string>
+    
+    <!-- Category 页面 -->
+    <string name="category_management">分类管理</string>
+    <string name="add_category">添加分类</string>
+    <string name="edit_category">编辑分类</string>
+    <string name="category_name">分类名称</string>
+    <string name="category_name_required">请输入分类名称</string>
+    <string name="category_add_success">分类添加成功</string>
+    <string name="category_edit_success">分类编辑成功</string>
+    <string name="category_delete_success">分类删除成功</string>
+    <string name="category_delete_confirm">确定要删除这个分类吗？分类下的密码记录将变为无分类。</string>
+    <string name="category_exists">该分类已存在</string>
+    <string name="no_categories">暂无分类</string>
+    <string name="category_count">%d 条记录</string>
+    
+    <!-- Search 页面 -->
+    <string name="search">搜索</string>
+    <string name="search_hint_long">输入主题、账号或网址搜索...</string>
+    <string name="search_results">搜索结果</string>
+    <string name="no_results">未找到匹配结果</string>
+    <string name="search_count">找到 %d 条结果</string>
+    <string name="search_start_hint">输入关键词开始搜索...</string>
+    
+    <!-- 导出导入 -->
+    <string name="export_data">导出数据</string>
+    <string name="import_data">导入数据</string>
+    <string name="export_import">导出 / 导入</string>
+    <string name="encryption_password">加密密码</string>
+    <string name="enter_encryption_password">请输入加密密码</string>
+    <string name="confirm_encryption_password">请确认加密密码</string>
+    <string name="password_mismatch">两次密码不一致</string>
+    <string name="export_success">数据导出成功</string>
+    <string name="export_failed">数据导出失败</string>
+    <string name="import_success">数据导入成功</string>
+    <string name="import_failed">数据导入失败</string>
+    <string name="file_name">password_backup.enc</string>
+
+    <!-- WebDAV 同步 -->
+    <string name="webdav_sync">WebDAV 同步</string>
+    <string name="sync_upload_success">同步上传成功</string>
+    <string name="sync_upload_failed">同步上传失败</string>
+    <string name="sync_download_success">同步下载成功</string>
+    <string name="sync_download_failed">同步下载失败</string>
+    <string name="sync_config_saved">配置已保存</string>
+
+    <!-- 通用 -->
+    <string name="username_label">用户名: </string>
+    <string name="password_label">密码: </string>
+    <string name="account_label">账号: </string>
+    <string name="enter_password">请输入密码</string>
+    <string name="data_format_error">数据格式错误</string>
+    <string name="file_read_error">无法读取文件</string>
+    <string name="records_count">%d 条记录</string>
+
+    <!-- WebDAV 状态 -->
+    <string name="connecting">正在连接...</string>
+    <string name="connection_success">连接成功</string>
+    <string name="connection_failed">连接失败: %s</string>
+    <string name="connection_failed_server">连接失败: 服务器返回错误</string>
+    <string name="uploading">正在上传...</string>
+    <string name="upload_success">上传成功 (%d 条记录)</string>
+    <string name="upload_failed">上传失败: %s</string>
+    <string name="downloading">正在下载...</string>
+    <string name="download_success">恢复成功 (%d 条记录)</string>
+    <string name="download_failed">恢复失败: %s</string>
+    <string name="download_confirm_title">确认恢复</string>
+    <string name="download_confirm_message">从服务器下载数据将覆盖本地所有密码记录，确定继续吗？</string>
+    <string name="enter_server_url">请输入服务器地址</string>
+    <string name="enter_username">请输入用户名</string>
+    <string name="enter_encryption_key">请输入加密密码</string>
+    <string name="test_connection">测试连接</string>
+    <string name="upload_backup">上传备份</string>
+    <string name="download_restore">下载恢复</string>
+
+    <!-- 导出导入 -->
+    <string name="export_success_fmt">数据导出成功</string>
+    <string name="export_failed_fmt">数据导出失败: %s</string>
+    <string name="import_success_fmt">数据导入成功 (%d 条)</string>
+    <string name="import_failed_fmt">数据导入失败: %s</string>
+
+    <!-- Settings 页面 -->
+    <string name="webdav_section_title">WebDAV 同步</string>
+    <string name="webdav_section_desc">配置 WebDAV 服务器以自动同步密码数据</string>
+    <string name="sync_section_title">同步操作</string>
+    <string name="sync_section_desc">使用加密密码同步数据到 WebDAV 服务器</string>
+    <string name="security_section_title">安全设置</string>
+    <string name="biometric_lock">生物识别锁</string>
+    <string name="biometric_lock_desc">启用后，每次打开应用需要指纹或面部识别验证</string>
+    <string name="biometric_not_available">设备不支持生物识别</string>
+    <string name="biometric_enabled">生物识别已启用</string>
+    <string name="biometric_disabled">生物识别已关闭</string>
+
+    <!-- 密码强度 -->
+    <string name="password_strength">密码强度</string>
+    <string name="strength_weak">弱</string>
+    <string name="strength_medium">中</string>
+    <string name="strength_strong">强</string>
+
+    <!-- 记录类型 -->
+    <string name="type_password">密码</string>
+    <string name="type_api_key">API Key</string>
+    <string name="hint_api_key">请输入 API Key</string>
+
+    <!-- 批量操作 -->
+    <string name="batch_delete">批量删除</string>
+    <string name="batch_delete_title">确认批量删除</string>
+    <string name="batch_delete_message">确定要删除选中的 %d 条记录吗？</string>
+    <string name="batch_delete_success">批量删除成功</string>
+    <string name="select_all">全选</string>
+
+    <!-- 生物识别 -->
+    <string name="biometric_title">身份验证</string>
+    <string name="biometric_subtitle">请验证身份以访问密码管理器</string>
+    <string name="biometric_cancel">取消</string>
+
+    <!-- 无障碍描述 -->
+    <string name="desc_lock_icon">密码锁图标</string>
+    <string name="desc_copy_username">复制用户名</string>
+    <string name="desc_toggle_password">切换密码可见性</string>
+    <string name="desc_copy_password">复制密码</string>
+    <string name="desc_edit_category">编辑分类</string>
+    <string name="desc_delete_category">删除分类</string>
+    <string name="desc_empty_state">暂无数据</string>
+    <string name="desc_more_options">更多选项</string>
+    <string name="desc_drag_handle">拖动排序</string>
+</resources>

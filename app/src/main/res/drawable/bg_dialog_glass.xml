@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- iOS 18 弹窗：白底 + 大圆角 + 1px 描边 + 顶部高光 + 毛玻璃效果 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/card_background" />
+            <corners android:radius="@dimen/corner_xxl" />
+        </shape>
+    </item>
+    <item
+        android:top="0dp"
+        android:right="0dp"
+        android:left="0dp"
+        android:bottom="60dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#FFFFFF3F"
+                android:endColor="#00000000" />
+            <corners
+                android:topLeftRadius="@dimen/corner_xxl"
+                android:topRightRadius="@dimen/corner_xxl" />
+        </shape>
+    </item>
+    <item
+        android:top="0.5dp"
+        android:bottom="0.5dp"
+        android:left="0.5dp"
+        android:right="0.5dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="0.5dp"
+                android:color="@color/stroke_glass" />
+            <corners android:radius="@dimen/corner_xxl" />
+        </shape>
+    </item>
+</layer-list>

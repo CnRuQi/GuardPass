@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- iOS 活动推入：当前页左滑退场 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+    <translate
+        android:duration="320"
+        android:fromXDelta="0%"
+        android:toXDelta="-30%"
+        android:interpolator="@android:interpolator/accelerate_cubic" />
+    <alpha
+        android:duration="240"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:interpolator="@android:interpolator/accelerate_cubic" />
+</set>

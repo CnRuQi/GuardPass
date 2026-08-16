@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Exclude sensitive database -->
+        <exclude domain="database" path="password_manager.db" />
+        
+        <!-- Exclude SharedPreferences with credentials -->
+        <exclude domain="sharedpref" path="webdav_prefs.xml" />
+        <exclude domain="sharedpref" path="biometric_prefs.xml" />
+        
+        <!-- Exclude sharedprefs directory to be safe -->
+        <exclude domain="sharedpref" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <!-- Exclude sensitive database -->
+        <exclude domain="database" path="password_manager.db" />
+        
+        <!-- Exclude SharedPreferences with credentials -->
+        <exclude domain="sharedpref" path="webdav_prefs.xml" />
+        <exclude domain="sharedpref" path="biometric_prefs.xml" />
+        
+        <!-- Exclude sharedprefs directory to be safe -->
+        <exclude domain="sharedpref" path="." />
+    </device-transfer>
+</data-extraction-rules>

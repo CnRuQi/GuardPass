@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 间距（克制留白） -->
+    <dimen name="spacing_xxs">2dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">12dp</dimen>
+    <dimen name="spacing_lg">16dp</dimen>
+    <dimen name="spacing_xl">20dp</dimen>
+    <dimen name="spacing_xxl">28dp</dimen>
+    <dimen name="spacing_huge">40dp</dimen>
+
+    <!-- 圆角（iOS 18 风格，22-28dp 主流） -->
+    <dimen name="corner_xs">6dp</dimen>
+    <dimen name="corner_sm">10dp</dimen>
+    <dimen name="corner_md">14dp</dimen>
+    <dimen name="corner_lg">20dp</dimen>
+    <dimen name="corner_xl">28dp</dimen>
+    <dimen name="corner_xxl">36dp</dimen>
+    <dimen name="corner_pill">999dp</dimen>
+
+    <!-- 图标 -->
+    <dimen name="icon_xs">16dp</dimen>
+    <dimen name="icon_sm">20dp</dimen>
+    <dimen name="icon_md">24dp</dimen>
+    <dimen name="icon_lg">40dp</dimen>
+    <dimen name="icon_xl">48dp</dimen>
+    <dimen name="icon_xxl">56dp</dimen>
+
+    <!-- 触摸目标（iOS 最小 44） -->
+    <dimen name="touch_target">48dp</dimen>
+    <dimen name="touch_target_sm">40dp</dimen>
+
+    <!-- 卡片（毛玻璃+大圆角） -->
+    <dimen name="card_elevation">0dp</dimen>
+    <dimen name="card_elevation_pressed">8dp</dimen>
+    <dimen name="card_stroke">0.5dp</dimen>
+    <dimen name="card_padding">@dimen/spacing_lg</dimen>
+
+    <!-- 搜索栏 -->
+    <dimen name="search_height">48dp</dimen>
+
+    <!-- FAB -->
+    <dimen name="fab_size">64dp</dimen>
+    <dimen name="fab_margin">20dp</dimen>
+
+    <!-- 动画时长（精细但克制） -->
+    <integer name="motion_xs">120</integer>
+    <integer name="motion_sm">200</integer>
+    <integer name="motion_md">280</integer>
+    <integer name="motion_lg">380</integer>
+    <integer name="motion_xl">480</integer>
+
+    <!-- 布局动画的 stagger 延迟百分比 -->
+    <integer name="layout_stagger_pct">6</integer>
+
+    <!-- 毛玻璃模糊（参考值，无法在 Android XML 中直接控制） -->
+    <dimen name="glass_blur">24dp</dimen>
+</resources>

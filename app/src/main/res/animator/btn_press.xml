@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- iOS 18 按钮按压：scale 0.94 + alpha 0.88，弹簧回弹 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <set>
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="100"
+                android:valueTo="0.94"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quint" />
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="100"
+                android:valueTo="0.94"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quint" />
+            <objectAnimator
+                android:propertyName="alpha"
+                android:duration="100"
+                android:valueTo="0.88"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quint" />
+        </set>
+    </item>
+    <item>
+        <set>
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="320"
+                android:valueTo="1.0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/overshoot" />
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="320"
+                android:valueTo="1.0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/overshoot" />
+            <objectAnimator
+                android:propertyName="alpha"
+                android:duration="260"
+                android:valueTo="1.0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/decelerate_quint" />
+        </set>
+    </item>
+</selector>
