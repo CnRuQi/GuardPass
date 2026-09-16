@@ -3,6 +3,7 @@ package com.example.myandroid;
 import android.app.Application;
 
 import com.example.myandroid.data.db.AppDatabase;
+import com.example.myandroid.data.repository.PasswordRepository;
 
 public class App extends Application {
 
@@ -13,6 +14,7 @@ public class App extends Application {
         super.onCreate();
         instance = this;
         database = AppDatabase.getInstance(this);
+        new PasswordRepository(this).migrateLegacyApiKeys();
     }
 
     public AppDatabase getDatabase() {

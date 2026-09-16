@@ -6,17 +6,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.myandroid.data.db.AppDatabase
+import com.example.myandroid.data.db.dao.PasswordDao
 import com.example.myandroid.data.db.entity.Category
 import com.example.myandroid.data.repository.CategoryRepository
-import com.example.myandroid.data.repository.PasswordRepository
 
 class CategoryViewModel(application: Application) : AndroidViewModel(application) {
-
     private val categoryRepository = CategoryRepository(application)
-    private val passwordRepository = PasswordRepository(application)
 
     val allCategories: LiveData<List<Category>> = categoryRepository.allCategories
-
+    private val rawCounts: LiveData<List<PasswordDao.CategoryCount>> = categoryRepository.getCategoryCounts()
     private val _categoryCounts = MediatorLiveData<Map<Long, Int>>()
     val categoryCounts: LiveData<Map<Long, Int>> = _categoryCounts
 
@@ -25,44 +23,39 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     val deleteResult = MutableLiveData<Boolean>()
 
     init {
-        _categoryCounts.addSource(allCategories) { categories ->
-            if (categories != null) {
-                refreshCounts(categories)
-            }
-        }
+        _categoryCounts.addSource(allCategories) { categories -> rebuildCounts(categories, rawCounts.value) }
+        _categoryCounts.addSource(rawCounts) { counts -> rebuildCounts(allCategories.value, counts) }
     }
 
-    private fun refreshCounts(categories: List<Category>) {
-        AppDatabase.databaseWriteExecutor.execute {
-            val counts = mutableMapOf<Long, Int>()
-            for (cat in categories) {
-                counts[cat.id] = 0
-            }
-            val dbCounts = passwordRepository.getCategoryCountsSync()
-            for (cc in dbCounts) {
-                cc.category_id?.let { id ->
-                    counts[id] = cc.count
-                }
-            }
-            _categoryCounts.postValue(counts)
+    private fun rebuildCounts(categories: List<Category>?, counts: List<PasswordDao.CategoryCount>?) {
+        val result = mutableMapOf<Long, Int>()
+        categories.orEmpty().forEach { result[it.id] = 0 }
+        counts.orEmpty().forEach { count ->
+            count.category_id?.let { result[it] = count.count }
         }
+        _categoryCounts.value = result
     }
 
     fun addCategory(name: String) {
         AppDatabase.databaseWriteExecutor.execute {
             try {
-                val existing = categoryRepository.allCategoriesSync
-                if (existing.any { it.name.equals(name, ignoreCase = true) }) {
+                val normalizedName = name.trim()
+                if (normalizedName.isBlank()) {
                     addResult.postValue(false)
                     return@execute
                 }
-                val category = Category().apply {
-                    this.name = name
-                    this.sortOrder = existing.size
+                val existing = categoryRepository.allCategoriesSync
+                if (existing.any { it.name.orEmpty().equals(normalizedName, ignoreCase = true) }) {
+                    addResult.postValue(false)
+                    return@execute
                 }
-                categoryRepository.insert(category)
+                categoryRepository.insertSync(Category().apply {
+                    this.name = normalizedName
+                    sortOrder = existing.size
+                    icon = "ic_category"
+                })
                 addResult.postValue(true)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 addResult.postValue(false)
             }
         }
@@ -71,15 +64,26 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     fun updateCategory(category: Category, newName: String) {
         AppDatabase.databaseWriteExecutor.execute {
             try {
-                val existing = categoryRepository.allCategoriesSync
-                if (existing.any { it.id != category.id && it.name.equals(newName, ignoreCase = true) }) {
+                val normalizedName = newName.trim()
+                if (normalizedName.isBlank()) {
                     editResult.postValue(false)
                     return@execute
                 }
-                category.name = newName
-                categoryRepository.update(category)
+                val existing = categoryRepository.allCategoriesSync
+                if (existing.any { it.id != category.id && it.name.orEmpty().equals(normalizedName, ignoreCase = true) }) {
+                    editResult.postValue(false)
+                    return@execute
+                }
+                val updated = Category().apply {
+                    id = category.id
+                    name = normalizedName
+                    icon = category.icon
+                    sortOrder = category.sortOrder
+                    createdAt = category.createdAt
+                }
+                categoryRepository.updateSync(updated)
                 editResult.postValue(true)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 editResult.postValue(false)
             }
         }
@@ -88,10 +92,9 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
     fun deleteCategory(category: Category) {
         AppDatabase.databaseWriteExecutor.execute {
             try {
-                passwordRepository.deleteByCategoryId(category.id)
-                categoryRepository.delete(category)
+                categoryRepository.deleteSync(category)
                 deleteResult.postValue(true)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 deleteResult.postValue(false)
             }
         }

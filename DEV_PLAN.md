@@ -1,155 +1,68 @@
-# 密码管理器开发计划
+# GuardPass 开发计划
 
-## 项目概述
+## 当前方向
 
-**项目名称**：MyAndroid（密码管理器）  
-**技术栈**：Java + XML + Room + MVVM  
-**最低支持**：Android 7.0 (API 24)  
-**目标版本**：Android 14 (API 36)
+GuardPass 是一个本地优先的 Android 密码管理器。当前重构目标是把旧的多 Activity、玻璃拟态界面收敛为单 Activity + Navigation Compose 的安全工作台，同时保持已有 Room 数据库兼容。
 
----
+本次范围包含：
 
-## 功能模块
+- 腾讯 Maven 镜像优先，Google/Maven Central/Gradle 官方仓库作为回退。
+- Material 3、浅色/深色主题、手机底部导航和大屏导航栏。
+- 密码库、收藏、搜索、记录编辑、分类、设置和应用锁。
+- 普通密码与 API Key 都写入加密的 password 字段。
+- ExportData.version = 2 加密备份，恢复分类与密码使用同一个 Room 事务。
+- WebDAV 与本地文件共享备份格式。
 
-| 模块 | 功能 |
-|------|------|
-| 密码记录 | 增删改查、密码显示/隐藏、一键复制 |
-| 分类管理 | 自定义分类 CRUD、按分类筛选 |
-| 搜索 | 按主题、账号模糊搜索 |
-| 数据同步 | 导出加密文件、导入恢复、WebDAV 同步 |
+明确不在本次范围内：
 
----
+- LINEAR_OAUTH_PLAN.md 中的 Linear OAuth。文档保留作未来方案，不注册 OAuth Activity，也不添加 OAuth 网络流程。
 
-## 项目结构
+## 当前架构
 
-```
-com.example.myandroid/
-├── App.java
-├── data/
-│   ├── db/
-│   │   ├── AppDatabase.java
-│   │   ├── dao/ (PasswordDao, CategoryDao)
-│   │   └── entity/ (PasswordEntry, Category)
-│   ├── model/
-│   │   └── ExportData.java
-│   └── repository/ (PasswordRepository, CategoryRepository)
-├── ui/
-│   ├── main/ (MainActivity, MainViewModel, PasswordAdapter)
-│   ├── add/ (AddEditActivity, AddEditViewModel)
-│   ├── category/ (CategoryActivity, CategoryViewModel, CategoryAdapter)
-│   ├── search/ (SearchActivity, SearchViewModel)
-│   └── settings/ (SettingsActivity)
-└── util/
-    ├── CryptoUtils.java
-    └── WebDavUtils.java
-```
+MainActivity (FragmentActivity)
+└── AppNavHost
+    ├── VaultScreen
+    ├── Favorites -> VaultScreen(filter=favorites)
+    ├── SearchScreenV2
+    ├── EntryEditorScreen
+    ├── CategoryScreenV2
+    └── SettingsScreenV2
 
----
+Compose UI -> ViewModel StateFlow/LiveData -> Repository -> Room DAO
+                                           └── BackupRepository -> CryptoUtils/WebDAV
 
-## 开发步骤
+旧的页面源码暂时保留，便于迁移期间参考和兼容编译；它们已经从 AndroidManifest.xml 中移除，不属于当前启动和导航路径。
 
-### 阶段 1：基础架构搭建 ✅
+## 数据与安全里程碑
 
-| 步骤 | 任务 | 状态 |
-|------|------|------|
-| 1.1 | 添加依赖 | ✅ |
-| 1.2 | 创建 Application 类 | ✅ |
-| 1.3 | 创建 Entity | ✅ |
-| 1.4 | 创建 DAO | ✅ |
-| 1.5 | 创建 Database | ✅ |
-| 1.6 | 创建 Repository | ✅ |
+- [x] 保留 password_manager.db、Room 表名和核心字段。
+- [x] 分类外键使用 ON DELETE SET NULL，删除分类不会删除密码。
+- [x] API Key 旧数据从明文 username 一次性迁移到加密 secret。
+- [x] Android Keystore AES-GCM 存储密码、API Key 和 WebDAV 凭据。
+- [x] 备份恢复预检格式、版本、分类引用和重复 ID。
+- [x] 清空和插入操作放在同一个事务，失败自动回滚。
+- [x] 兼容 version = 1 无分类备份；新导出固定为 version = 2。
+- [x] 剪贴板复制后在应用仍持有剪贴板时自动清理。
 
-### 阶段 2：主页 + 密码列表 ✅
+## UI 里程碑
 
-| 步骤 | 任务 | 状态 |
-|------|------|------|
-| 2.1 | 设计主页布局 | ✅ |
-| 2.2 | 创建 MainViewModel | ✅ |
-| 2.3 | 创建 PasswordAdapter | ✅ |
-| 2.4 | 实现密码列表 | ✅ |
-| 2.5 | 实现分类筛选 | ✅ |
-| 2.6 | 实现密码显示/隐藏 | ✅ |
-| 2.7 | 实现一键复制 | ✅ |
+- [x] 中性背景、墨色文字、低饱和青绿色主色、琥珀提示和红色危险色。
+- [x] 小圆角、明确边界、克制的非弹性动效和系统字体。
+- [x] 搜索覆盖标题、账号和网址。
+- [x] 密钥默认遮罩，按条目独立显示/复制。
+- [x] 编辑页统一 secret 字段，API Key 不再占用 username。
+- [x] 分类数量响应式刷新、重复名称校验和删除确认。
+- [x] 生物识别或设备凭据应用锁。
 
-### 阶段 3：添加/编辑功能 ✅
+## 验证清单
 
-| 步骤 | 任务 | 状态 |
-|------|------|------|
-| 3.1 | 添加字符串资源 | ✅ |
-| 3.2 | 创建表单布局 | ✅ |
-| 3.3 | 创建 Spinner 项布局 | ✅ |
-| 3.4 | 创建菜单资源 | ✅ |
-| 3.5 | 创建 AddEditViewModel | ✅ |
-| 3.6 | 实现 AddEditActivity | ✅ |
+PowerShell:
 
-### 阶段 4：分类管理 ✅
+$env:GRADLE_USER_HOME = (Join-Path (Get-Location) '.gradle')
+$env:ANDROID_USER_HOME = (Join-Path (Get-Location) '.android')
+./gradlew.bat :app:dependencies --configuration debugCompileClasspath
+./gradlew.bat test
+./gradlew.bat :app:assembleDebug
+./gradlew.bat :app:connectedDebugAndroidTest
 
-| 步骤 | 任务 | 状态 |
-|------|------|------|
-| 4.1 | 添加字符串资源 | ✅ |
-| 4.2 | 创建分类管理页布局 | ✅ |
-| 4.3 | 创建分类列表项布局 | ✅ |
-| 4.4 | 创建分类弹窗布局 | ✅ |
-| 4.5 | 创建 CategoryViewModel | ✅ |
-| 4.6 | 创建 CategoryAdapter | ✅ |
-| 4.7 | 实现 CategoryActivity | ✅ |
-| 4.8 | 在 MainActivity 添加入口 | ✅ |
-| 4.9 | 注册 Activity | ✅ |
-
-### 阶段 5：搜索功能 ✅
-
-| 步骤 | 任务 | 状态 |
-|------|------|------|
-| 5.1 | 添加字符串资源 | ✅ |
-| 5.2 | 创建搜索页布局 | ✅ |
-| 5.3 | 创建 SearchViewModel | ✅ |
-| 5.4 | 实现 SearchActivity | ✅ |
-| 5.5 | 在 MainActivity 添加入口 | ✅ |
-| 5.6 | 注册 Activity | ✅ |
-
-### 阶段 6：数据加密 + 导出导入 ✅
-
-| 步骤 | 任务 | 状态 |
-|------|------|------|
-| 6.1 | 实现 CryptoUtils | ✅ |
-| 6.2 | 实现导出功能 | ✅ |
-| 6.3 | 实现导入功能 | ✅ |
-
-### 阶段 7：WebDAV 同步 ✅
-
-| 步骤 | 任务 | 状态 |
-|------|------|------|
-| 7.1 | 实现 WebDavUtils | ✅ |
-| 7.2 | 实现配置界面 | ✅ |
-| 7.3 | 实现同步逻辑 | ✅ |
-
-### 阶段 8：优化完善 ✅
-
-| 步骤 | 任务 | 状态 |
-|------|------|------|
-| 8.1 | 修复夜间主题（统一 NoActionBar + 同色系） | ✅ |
-| 8.2 | 修复 CategoryAdapter 分类数量显示 | ✅ |
-| 8.3 | 修复 MainViewModel applyFilters getValue() 问题 | ✅ |
-| 8.4 | 修复 AddEditActivity 加载密码的竞态条件 | ✅ |
-| 8.5 | 修复 exportImportPassword 屏幕旋转丢失 | ✅ |
-| 8.6 | 提取硬编码字符串到 strings.xml | ✅ |
-| 8.7 | 移除 activity_main.xml 中的冗余 chip_all | ✅ |
-| 8.8 | WebDavUtils 改为单例复用 OkHttpClient | ✅ |
-| 8.9 | 为 SettingsActivity 创建 SettingsViewModel | ✅ |
-
-
----
-
-## 预计开发时间
-
-| 阶段 | 预计时间 | 状态 |
-|------|----------|------|
-| 阶段 1：基础架构 | 1-2 小时 | ✅ |
-| 阶段 2：主页列表 | 2-3 小时 | ✅ |
-| 阶段 3：添加编辑 | 2-3 小时 | ✅ |
-| 阶段 4：分类管理 | 1-2 小时 | ✅ |
-| 阶段 5：搜索功能 | 1 小时 | ✅ |
-| 阶段 6：加密导出 | 2-3 小时 | ✅ |
-| 阶段 7：WebDAV | 3-4 小时 | ✅ |
-| 阶段 8：优化完善 | 2-3 小时 | ✅ |
-| **总计** | **约 15-20 小时** | |
+如果没有 Android SDK 或设备，至少执行依赖解析、静态检查，并在交付记录中说明未执行的编译/仪器测试。

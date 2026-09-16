@@ -16,10 +16,13 @@ public class BiometricHelper {
 
     private static final String PREFS_NAME = "biometric_prefs";
     private static final String KEY_ENABLED = "biometric_enabled";
+    private static final int AUTHENTICATORS =
+            BiometricManager.Authenticators.BIOMETRIC_STRONG
+                    | BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 
     public static boolean isBiometricAvailable(Context context) {
         BiometricManager biometricManager = BiometricManager.from(context);
-        return biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG) ==
+        return biometricManager.canAuthenticate(AUTHENTICATORS) ==
                 BiometricManager.BIOMETRIC_SUCCESS;
     }
 
@@ -61,7 +64,7 @@ public class BiometricHelper {
         BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 .setTitle(activity.getString(R.string.biometric_title))
                 .setSubtitle(activity.getString(R.string.biometric_subtitle))
-                .setNegativeButtonText(activity.getString(R.string.biometric_cancel))
+                .setAllowedAuthenticators(AUTHENTICATORS)
                 .build();
 
         biometricPrompt.authenticate(promptInfo);

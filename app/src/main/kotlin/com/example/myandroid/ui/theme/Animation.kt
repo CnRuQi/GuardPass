@@ -1,46 +1,16 @@
 package com.example.myandroid.ui.theme
 
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 
-// ============================================================
-// VisionOS-style animation specs — spring-driven, elastic, fluid
-// ============================================================
+// Short, non-bouncy transitions keep the secure workspace calm and predictable.
+val SpringBouncy = tween<Float>(durationMillis = 160)
+val SpringSnappy = tween<Float>(durationMillis = 120)
+val TweenSmooth = tween<Float>(durationMillis = 180)
 
-/**
- * iOS-style spring for button/card press scale effect.
- * DampingRatioMediumBouncy + StiffnessLow gives the iconic
- * "slightly bouncy" feel of Apple interactions.
- */
-val SpringBouncy = spring<Float>(
-    dampingRatio = Spring.DampingRatioMediumBouncy,
-    stiffness = Spring.StiffnessLow
-)
-
-/**
- * A snappier spring for less playful transitions (e.g., switches).
- */
-val SpringSnappy = spring<Float>(
-    dampingRatio = Spring.DampingRatioMediumBouncy,
-    stiffness = Spring.StiffnessMedium
-)
-
-/**
- * Smooth, non-bouncy tween for opacity/color transitions.
- */
-val TweenSmooth = tween<Float>(
-    durationMillis = 280,
-    easing = androidx.compose.animation.core.FastOutSlowInEasing
-)
-
-/**
- * Duration constants matching the original dimens.xml motion values.
- */
 object MotionDuration {
-    const val XS = 120
-    const val SM = 200
-    const val MD = 280
-    const val LG = 380
-    const val XL = 480
+    const val XS = 100
+    const val SM = 160
+    const val MD = 220
+    const val LG = 300
+    const val XL = 420
 }

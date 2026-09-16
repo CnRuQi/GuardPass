@@ -10,7 +10,6 @@ import androidx.room.Update;
 import com.example.myandroid.data.db.entity.PasswordEntry;
 
 import java.util.List;
-import java.util.Map;
 
 @Dao
 public interface PasswordDao {
@@ -36,7 +35,7 @@ public interface PasswordDao {
     @Query("SELECT * FROM password_entries WHERE id = :id")
     PasswordEntry getPasswordByIdSync(long id);
 
-    @Query("SELECT * FROM password_entries WHERE title LIKE '%' || :query || '%' OR username LIKE '%' || :query || '%' ORDER BY updated_at DESC")
+    @Query("SELECT * FROM password_entries WHERE title LIKE '%' || :query || '%' OR username LIKE '%' || :query || '%' OR url LIKE '%' || :query || '%' ORDER BY updated_at DESC")
     LiveData<List<PasswordEntry>> searchPasswords(String query);
 
     @Query("SELECT * FROM password_entries WHERE is_favorite = 1 ORDER BY updated_at DESC")
@@ -45,7 +44,11 @@ public interface PasswordDao {
     @Query("SELECT COUNT(*) FROM password_entries")
     LiveData<Integer> getPasswordCount();
 
-    @Query("DELETE FROM password_entries WHERE category_id = :categoryId")
+    /**
+     * Kept for compatibility with the original repository API. Removing a
+     * category must never remove the records assigned to it.
+     */
+    @Query("UPDATE password_entries SET category_id = NULL WHERE category_id = :categoryId")
     void deleteByCategoryId(long categoryId);
 
     @Query("SELECT * FROM password_entries ORDER BY updated_at DESC")
@@ -65,6 +68,9 @@ public interface PasswordDao {
     
     @Query("SELECT category_id, COUNT(*) as count FROM password_entries GROUP BY category_id")
     List<CategoryCount> getCategoryCountsSync();
+
+    @Query("SELECT category_id, COUNT(*) as count FROM password_entries GROUP BY category_id")
+    LiveData<List<CategoryCount>> getCategoryCounts();
     
     static class CategoryCount {
         public Long category_id;

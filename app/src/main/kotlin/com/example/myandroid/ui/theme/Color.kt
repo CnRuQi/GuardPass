@@ -2,55 +2,51 @@ package com.example.myandroid.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// ============================================================
-// VisionOS / iOS 28 Glassmorphism Color Palette
-// 枯木冷茶 · 禅茶书房 — 弥散渐变 + 毛玻璃
-// ============================================================
+// GuardPass uses a quiet, high-contrast workbench palette instead of glass or gradients.
+val Ink = Color(0xFF162322)
+val InkMuted = Color(0xFF5D6C69)
+val Paper = Color(0xFFF5F7F5)
+val Surface = Color(0xFFFFFFFF)
+val Teal = Color(0xFF1D776F)
+val TealDark = Color(0xFF125A54)
+val TealSoft = Color(0xFFD5ECE7)
+val Amber = Color(0xFF9A6500)
+val AmberSoft = Color(0xFFFFE9B8)
+val Danger = Color(0xFFBA3A36)
+val DangerSoft = Color(0xFFFFDAD6)
+val Line = Color(0xFFD6DEDA)
+val Mask = Color(0xFF97A7A2)
 
-// ── Brand / Primary ──
-val Purple500 = Color(0xFF5856D6)
-val Purple600 = Color(0xFF4A48B5)
-val Purple400 = Color(0xFF7A78E0)
-val Purple50 = Color(0xFFE8E6FF)
-val Purple100 = Color(0xFFF2F0FF)
-
-// ── Background Layers (莫兰迪灰调) ──
-val BackgroundLight = Color(0xFFF2F2F7)
-val BackgroundDark = Color(0xFF1C1C1E)
-val SurfaceLight = Color(0xFFF8F8FC)
-val SurfaceDark = Color(0xFF2C2C2E)
-
-// ── Glass / Card backgrounds ──
-val GlassWhite = Color(0x66FFFFFF)   // ~40% white glass
-val GlassDark = Color(0x661C1C1E)    // ~40% dark glass
-val GlassBorder = Color(0x80FFFFFF)  // ~50% white inner border
+// Compatibility aliases for the source-only legacy screens kept in the project.
+val Purple500 = Teal
+val Purple600 = TealDark
+val Purple400 = Color(0xFF4E9A91)
+val Purple50 = TealSoft
+val Purple100 = Color(0xFFEAF5F2)
+val BackgroundLight = Paper
+val BackgroundDark = Color(0xFF101918)
+val SurfaceLight = Surface
+val SurfaceDark = Color(0xFF1D2927)
+val GlassWhite = Color(0x66FFFFFF)
+val GlassDark = Color(0x66101918)
+val GlassBorder = Color(0x80FFFFFF)
 val GlassBorderDark = Color(0x33FFFFFF)
-
-// ── Text ──
-val TextPrimary = Color(0xFF1C1C1E)
-val TextSecondary = Color(0xFF6E6E73)
-val TextTertiary = Color(0xFFAEAEB2)
-val TextPrimaryDark = Color(0xFFF2F2F7)
-val TextSecondaryDark = Color(0xFF8E8E93)
-val TextTertiaryDark = Color(0xFF636366)
-
-// ── Semantic ──
-val ErrorRed = Color(0xFFFF3B30)
-val SuccessGreen = Color(0xFF34C759)
-val WarningOrange = Color(0xFFFF9F0A)
-val InfoBlue = Color(0xFF007AFF)
-
-// ── Password Mask ──
-val PasswordMask = Color(0xFFC7C7CC)
-val PasswordMaskDark = Color(0xFF48484A)
-
-// ── Gradient stops for diffuse backgrounds ──
-val GradientStart = Color(0xFFE8E0F0)   // soft lavender
-val GradientMid = Color(0xFFF0E8E8)     // warm blush
-val GradientEnd = Color(0xFFE8F0F0)     // cool mint whisper
-
-// ── Chip colors ──
-val ChipUnselected = Color(0x4D8E8E93)  // 30% gray
-val ChipSelected = Purple500
+val TextPrimary = Ink
+val TextSecondary = InkMuted
+val TextTertiary = Color(0xFF899793)
+val TextPrimaryDark = Color(0xFFE8F0ED)
+val TextSecondaryDark = Color(0xFFB0BFBA)
+val TextTertiaryDark = Color(0xFF7E8D88)
+val ErrorRed = Danger
+val SuccessGreen = Color(0xFF277C58)
+val WarningOrange = Amber
+val InfoBlue = Color(0xFF226A9B)
+val PasswordMask = Mask
+val PasswordMaskDark = Color(0xFF667671)
+val GradientStart = Paper
+val GradientMid = Color(0xFFE7F1ED)
+val GradientEnd = Color(0xFFF6F0E3)
+val ChipUnselected = Color(0xFFE4EBE8)
+val ChipSelected = Teal
 val ChipSelectedText = Color.White
-val ChipUnselectedText = TextPrimary
+val ChipUnselectedText = Ink

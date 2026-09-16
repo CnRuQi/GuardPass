@@ -7,6 +7,7 @@ import android.util.Log;
 
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
+import java.security.GeneralSecurityException;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -52,17 +53,7 @@ public class StorageCrypto {
     public static String encrypt(String plaintext) {
         if (plaintext == null || plaintext.isEmpty()) return "";
         try {
-            SecretKey key = getOrCreateKey();
-            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] iv = cipher.getIV();
-            byte[] ciphertext = cipher.doFinal(plaintext.getBytes(StandardCharsets.UTF_8));
-
-            byte[] combined = new byte[iv.length + ciphertext.length];
-            System.arraycopy(iv, 0, combined, 0, iv.length);
-            System.arraycopy(ciphertext, 0, combined, iv.length, ciphertext.length);
-
-            return Base64.encodeToString(combined, Base64.NO_WRAP);
+            return encryptRequired(plaintext);
         } catch (Exception e) {
             Log.e(TAG, "Encryption failed", e);
             return "";
@@ -72,19 +63,58 @@ public class StorageCrypto {
     public static String decrypt(String encrypted) {
         if (encrypted == null || encrypted.isEmpty()) return "";
         try {
-            SecretKey key = getOrCreateKey();
-            byte[] combined = Base64.decode(encrypted, Base64.NO_WRAP);
-            if (combined.length < GCM_IV_LENGTH + 1) return "";
-
-            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-            GCMParameterSpec spec = new GCMParameterSpec(GCM_TAG_LENGTH, combined, 0, GCM_IV_LENGTH);
-            cipher.init(Cipher.DECRYPT_MODE, key, spec);
-
-            byte[] plaintext = cipher.doFinal(combined, GCM_IV_LENGTH, combined.length - GCM_IV_LENGTH);
-            return new String(plaintext, StandardCharsets.UTF_8);
+            return decryptRequired(encrypted);
         } catch (Exception e) {
             Log.e(TAG, "Decryption failed", e);
             return "";
         }
+    }
+
+    public static String encryptRequired(String plaintext) throws GeneralSecurityException {
+        if (plaintext == null || plaintext.isEmpty()) return "";
+
+        SecretKey key;
+        try {
+            key = getOrCreateKey();
+        } catch (Exception e) {
+            throw new GeneralSecurityException("Unable to access Android Keystore", e);
+        }
+
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte[] iv = cipher.getIV();
+        byte[] ciphertext = cipher.doFinal(plaintext.getBytes(StandardCharsets.UTF_8));
+
+        byte[] combined = new byte[iv.length + ciphertext.length];
+        System.arraycopy(iv, 0, combined, 0, iv.length);
+        System.arraycopy(ciphertext, 0, combined, iv.length, ciphertext.length);
+        return Base64.encodeToString(combined, Base64.NO_WRAP);
+    }
+
+    public static String decryptRequired(String encrypted) throws GeneralSecurityException {
+        if (encrypted == null || encrypted.isEmpty()) return "";
+
+        SecretKey key;
+        try {
+            key = getOrCreateKey();
+        } catch (Exception e) {
+            throw new GeneralSecurityException("Unable to access Android Keystore", e);
+        }
+
+        byte[] combined;
+        try {
+            combined = Base64.decode(encrypted, Base64.NO_WRAP);
+        } catch (IllegalArgumentException e) {
+            throw new GeneralSecurityException("Invalid encrypted value", e);
+        }
+        if (combined.length < GCM_IV_LENGTH + 1) {
+            throw new GeneralSecurityException("Encrypted value is too short");
+        }
+
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        GCMParameterSpec spec = new GCMParameterSpec(GCM_TAG_LENGTH, combined, 0, GCM_IV_LENGTH);
+        cipher.init(Cipher.DECRYPT_MODE, key, spec);
+        byte[] plaintext = cipher.doFinal(combined, GCM_IV_LENGTH, combined.length - GCM_IV_LENGTH);
+        return new String(plaintext, StandardCharsets.UTF_8);
     }
 }
